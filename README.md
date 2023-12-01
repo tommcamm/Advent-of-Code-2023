@@ -1,6 +1,6 @@
 # Advent-of-Code-2023
 
-Welcome to my repository for the [Advent of Code 2023](https://adventofcode.com/2023)! This repository contains my personal (crappy) solutions to the challenges. I can't guarantee how good they are but I hope you find these implementations interesting and helpful!
+This repository contains my personal (crappy) solutions to the challenges of the [Advent of Code 2023](https://adventofcode.com/2023/) event. I can't guarantee how good they are but I hope you find these implementations interesting and helpful!
 
 ## Exercises Included
 
