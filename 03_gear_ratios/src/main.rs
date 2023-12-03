@@ -9,10 +9,14 @@ fn main() {
         .map(|line| line.unwrap().chars().collect())
         .collect();
 
-    let sum = sum_part_numbers(&schematic);
-    println!("[Part one] Sum of all part numbers: {}", sum);
+    let sum_part_numbers = sum_part_numbers(&schematic);
+    let sum_gear_ratios = sum_gear_ratios(&schematic);
+
+    println!("[Part one] Sum of all part numbers: {}", sum_part_numbers);
+    println!("[Part two] Sum of gear ratios: {}", sum_gear_ratios);
 }
 
+// Part one
 fn sum_part_numbers(schematic: &[Vec<char>]) -> i32 {
     let mut sum = 0;
     let mut counted_positions = HashSet::new();
@@ -36,7 +40,41 @@ fn sum_part_numbers(schematic: &[Vec<char>]) -> i32 {
         }
     }
     //counted_positions.iter().for_each(|pos| println!("Pos: {:?}", pos));
+    sum
+}
 
+// Part two
+fn sum_gear_ratios(schematic: &[Vec<char>]) -> i32 {
+    let mut sum = 0;
+    let mut counted_positions = HashSet::new();
+
+    for (y, row) in schematic.iter().enumerate() {
+        for (x, &cell) in row.iter().enumerate() {
+            if cell == '*' && get_adjacent_positions(x, y, schematic).len() > 1 {
+                let mut temp_mult = 1;
+                let mut counter = 0 ;
+                for (adj_x, adj_y) in get_adjacent_positions(x, y, schematic) {
+                    if !counted_positions.contains(&(adj_x, adj_y)) && schematic[adj_y][adj_x]
+                        .is_ascii_digit() {
+                        if let Some(number) = extract_number(adj_x, adj_y, schematic) {
+                            temp_mult *= number;
+                            counter += 1;
+                            for pos in number_positions(adj_x, adj_y,
+                                                        &number.to_string(), schematic) {
+                                counted_positions.insert(pos);
+                            }
+                        }
+                    }
+                }
+
+                // Giant work-around, should be changed to something that avoid useless work above.
+                if counter == 2 {
+                    sum += temp_mult;
+                }
+            }
+        }
+    }
+    //counted_positions.iter().for_each(|pos| println!("Pos: {:?}", pos));
     sum
 }
 
