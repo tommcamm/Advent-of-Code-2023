@@ -45,9 +45,7 @@ fn main() {
 }
 
 fn p1_sum(cards: &[Card]) -> i32{
-    let mut sum = 0;
-    cards.iter().for_each(|card| {sum += card.calculate_p1_score()});
-    sum
+    cards.iter().map(|card| card.calculate_p1_score()).sum::<i32>()
 }
 
 fn p2_sum(cards: &[Card]) -> i32 {
