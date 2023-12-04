@@ -9,3 +9,4 @@ This repository contains my personal (crappy) solutions to the challenges of the
 | 1   | Trebuchet? | [Day 1 Task](https://adventofcode.com/2023/day/1) | ✅ | ✅ |
 | 2   | Cube Conundrum | [Day 2 Task](https://adventofcode.com/2023/day/2) | ✅ | ✅ |
 | 3   | Gear Ratios | [Day 3 Task](https://adventofcode.com/2023/day/3) | ✅ | ✅ |
+| 4   | Scratchcards  | [Day 4 Task](https://adventofcode.com/2023/day/4) | ✅ | ✅ |
