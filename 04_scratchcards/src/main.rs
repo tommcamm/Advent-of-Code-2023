@@ -53,38 +53,21 @@ fn p1_sum(cards: &[Card]) -> i32{
 fn p2_sum(cards: &[Card]) -> i32 {
     let points_vec :Vec<i32> = cards.iter()
         .map(|card| card.get_matching_numbers()).collect();
-    println!("Cards matching vec length -> {}", points_vec.len());
-    print!("Cards matching vec -> ");
-    points_vec.iter().for_each(|r| {print!("{},", r)});
-    println!();
 
-    p2_sum_rec(&points_vec, 0)
-}
+    let mut res_vec = vec![1; points_vec.len()];
 
-fn p2_sum_rec(points: &[i32], iter :usize) -> i32{
+    for (i, num) in points_vec.iter().enumerate() {
+        for _ in 0..*res_vec.get(i).unwrap() {
+            for delta in 1..(*num + 1) {
+                if delta <= points_vec.len() as i32 {
+                    res_vec[(delta + (i as i32)) as usize] += 1;
+                }
 
-    println!("p2_sum_rec call with iter -> {}", iter);
-    // Base case
-    if iter >= points.len() {
-        println!("closing call with 0, (iter -> {})", iter);
-        return 0;
-    } else if *points.get(iter).unwrap() == 0 {
-        println!("closing call with 1, (iter -> {})", iter);
-        return 1;
+            }
+        }
     }
 
-    let mut sum = 1;
-    let start_index = iter + 1;
-    let stop_index = start_index + (points.get(iter).unwrap().to_owned() as usize);
-
-    println!("Start index -> {}, stop index -> {}", start_index, stop_index - 1);
-
-    for i in start_index..stop_index {
-        //println!("calling with iter -> {}", i);
-        sum += p2_sum_rec(points, i);
-    }
-
-    sum + points.get(iter).unwrap().to_owned()
+    res_vec.iter().sum::<i32>() // sum of the vector of cards
 }
 
 fn parse_card(line: String) -> Card {
